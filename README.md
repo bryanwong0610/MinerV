@@ -1,5 +1,5 @@
 # Varminer
-A workflow to annotate the variation of human Exome Sequencing data , Whole Genome Sequencing data, MT-DNA sequencing Data base on CWL 
+A workflow to annotate and validate the variation pathogenicty of human Exome Sequencing data , Whole Genome Sequencing data, MT-DNA sequencing Data for clinical use.
 # How to use?
  * Docker enviroment
 # Purpose
