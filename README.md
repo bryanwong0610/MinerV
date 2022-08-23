@@ -3,8 +3,11 @@
 A workflow to annotate and validate the variation pathogenicty of human Exome Sequencing data , Whole Genome Sequencing data, MT-DNA sequencing Data for clinical diagnosis.
 ## How to use?
  * Firstly to be ensure the Docker already installed on your equipments([Docker](https://www.docker.com) support Linux,Mac,Windows,system)
+ * Patient's disease feature and phenotype should be known, using thoese description word to select the most matching HPO id by [Phenomizer](https://compbio.charite.de/phenomizer/)
+ * Prepare a yaml file confugration process requierments.
+ * Ability to use the comman line to analysis the data
 ## Purpose
-To validate the SNP pathogenicity for human 
+To validate the SNP pathogenicity for human rare disease
 ## Usage tool :
  * GATK ( if dont have the raw vcf data) (do not program yet)
  * Annovar
