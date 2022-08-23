@@ -1,24 +1,25 @@
 # Varminer
 ## Intro
-A workflow to annotate and validate the variation pathogenicty of human Exome Sequencing data , Whole Genome Sequencing data, MT-DNA sequencing Data for clinical diagnosis.
+A workflow to annotate and evaluate the variation pathogenicty of human Exome Sequencing data , Whole Genome Sequencing data, MT-DNA sequencing Data for clinical diagnosis.
 ## How to use?
  * Firstly to be ensure the Docker already installed on your equipments([Docker](https://www.docker.com) support Linux,Mac,Windows system)
- * Patient's disease feature and phenotype should be known, using thoese description word to select the most matching HPO id by [Phenomizer](https://compbio.charite.de/phenomizer/)
+ * Patient's disease features and phenotype should be known, using thoese description word to select the most matching HPO id by [Phenomizer](https://compbio.charite.de/phenomizer/)
  * Prepare a yaml file confugration process requierments.
- * Ability to use the comman line to analysis the data
+ * Ability to use the comman line 
 ## Purpose
-To validate the SNP pathogenicity for human rare disease
+There were many nucleotide variation happening in the human genome, but most of thoese variation were beign,but how to find out the . Since the reduction in the cost of NGS, the detection of genetics variant has become more conveniet,and sequencing technology gradually being applied in clinical diagnosis for 
+Here is a workflow to annotate the NGS data (now support the [VCF](https://www.internationalgenome.org/wiki/Analysis/vcf4.0/) format) ,and filtering the variant data by filtering rule(which can be set up by user).
 ## Usage tool :
- * GATK ( if dont have the raw vcf data) (do not program yet)
- * Annovar
+ * GATK ( if dont have the raw vcf data,constructin......) 
+ * annovar
  * tabix
- * Exomiser
+ * exomiser
  * hmtnote
  * python
  * R
  * shell
  * cwl
- * ect....
+ * etc....
 ## Pipeline 
   ### WES & WGS data annotating and filter
   <img width="996" alt="截屏2022-08-22 17 57 50" src="https://user-images.githubusercontent.com/53446971/185894488-ef6bcffb-e008-4b70-9472-86e0bfc6b111.png">
