@@ -7,10 +7,9 @@ A workflow to annotate and evaluate the variation pathogenicity of human Exome S
  * Prepare a yaml file configuration process requirements.
  * Ability to use the command line 
 ## Purpose
-Since the reduction in the costs of NGS, the detection of genetics variant has become more convenient, sequencing technology gradually being applied in clinical diagnosis.There were many nucleotide variation happening in the human genome, but most of those variation were beign[1](https://www.genome.gov/news/news-release/Genomics-daunting-challenge-Identifying-variants-that-matter). It's a great challenge to select the most likely pathogenic variation for doctors and scientists. So that many institutions publish the guideline of filtering variants to help researchers better to find out the most pathogenic mutation ,such as the [ACMG](https://www.gimjournal.org/article/S1098-3600(21)03031-8/fulltext).
-Here is a workflow to annotate the NGS data (now support the [VCF](https://www.internationalgenome.org/wiki/Analysis/vcf4.0/) format) ,and filtering the variant data by filtering rule(which can be set up by user).
-## Usage tool :
- * GATK ( if don’t have the raw vcf data,construction......) 
+Since the reduction in the costs of NGS, the detection of genetics variant has become more convenient, sequencing technology gradually being applied in clinical diagnosis.There were many nucleotide variation happening in the human genome, but most of those variation were beign[1](https://www.genome.gov/news/news-release/Genomics-daunting-challenge-Identifying-variants-that-matter).
+It's a great challenge to select the most likely pathogenic variation for doctors and scientists. So that many institutions publish their guideline to help researchers better to find out the most pathogenic mutation ,such as the [ACMG](https://www.gimjournal.org/article/S1098-3600(21)03031-8/fulltext).And also many databases was released to recording the pathogenicity and related phenotype of SNPs.([ClinVar](https://www.ncbi.nlm.nih.gov/clinvar/),[decipher](https://www.deciphergenomics.org/patient/263708/genotype/241078/browser),etc…).Apply those resources,we can easily to find out some valuable candidate variation site to treat the patients disease by some special target.By using the released tools to construct a comprehensive workflow to annotate the NGS data (now support the [VCF](https://www.internationalgenome.org/wiki/Analysis/vcf4.0/) format) and filtering the variant data by filtering rule(which can be set up by user),in order to get the most related variation informations for clinical diagnosis.
+## This workflow constructed by :
  * annovar
  * tabix
  * exomiser
@@ -34,8 +33,8 @@ Here is a workflow to annotate the NGS data (now support the [VCF](https://www.i
       * region rule
       * effect rule
       * MAF database
-### Web (which front-end department colleagues assist in establishing)
-![截屏2022-08-22 18 12 44](https://user-images.githubusercontent.com/53446971/185897662-ef26ba97-a929-4e99-a2d9-ba31e3a1234f.png)
+
+
 
 
 
