@@ -25,7 +25,7 @@ So, it's a great challenge to select the most likely pathogenic variation for do
   ### WES & WGS data annotating and filter
   <img width="996" alt="截屏2022-08-22 17 57 50" src="https://user-images.githubusercontent.com/53446971/185894488-ef6bcffb-e008-4b70-9472-86e0bfc6b111.png">
   
-### API :
+#### API :
    * HPOid
    * splicing_threshold
    * Sample_name
@@ -36,8 +36,14 @@ So, it's a great challenge to select the most likely pathogenic variation for do
       * effect rule
       * MAF database
 
-
-
+### MT-DNA pipeline:
+  #### Single MT-DNA annotation by hmtnote:
+  <img width="865" alt="截屏2022-08-24 14 19 30" src="https://user-images.githubusercontent.com/53446971/186345103-509c42c9-c458-4166-9129-c148d7c5e06b.png">
+  
+  The hmtnote is a python module, so I've already bulid a docker image to use this module to annotate MT-DNA's data.
+  ##### API 
+  VCF : raw vcf
+  Output_name: a prefix of the result
 
 
 
