@@ -42,7 +42,7 @@ So, it's a great challenge to select the most likely pathogenic variation for do
   
   The hmtnote is a python module, so I've already bulid a docker image to use this module to annotate MT-DNA's data.
   ##### API 
-  VCF : raw vcf
+  VCF : raw vcf \n
   Output_name: a prefix of the result
 
 
