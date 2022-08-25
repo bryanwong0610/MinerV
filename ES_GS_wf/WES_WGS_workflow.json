@@ -6,6 +6,7 @@
     "$namespaces": {
         "sbg": "https://www.sevenbridges.com/"
     },
+    "sbg:component":"comvariant",
     "inputs": [
         {
             "id": "annoPath",
