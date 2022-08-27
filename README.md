@@ -22,7 +22,7 @@ So, it's a great challenge to select the most likely pathogenic variation for do
  * [cwl](https://www.commonwl.org/#:~:text=Common%20Workflow%20Language%20%28CWL%29%20is%20an%20open%20standard,variety%20of%20platforms%20that%20support%20the%20CWL%20standards.)
  * etc...
 ## Pipeline 
-  ### WES & WGS data annotating and filter
+  ### WES & WGS data annotation and filter
   <img width="996" alt="截屏2022-08-22 17 57 50" src="https://user-images.githubusercontent.com/53446971/185894488-ef6bcffb-e008-4b70-9472-86e0bfc6b111.png">
   
 #### API :
