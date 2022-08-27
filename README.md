@@ -4,7 +4,7 @@ A workflow to annotate and evaluate the variation pathogenicity of human Exome S
 ## How to use?
  * Firstly ensure the Docker is already installed on your equipment ([Docker](https://www.docker.com) support Linux, Mac, Windows system)
  * Patient's disease features and phenotype should be known, using those description words to select the most matching HPO id by [Phenomizer](https://compbio.charite.de/phenomizer/)
- * Prepare a {YAML} file configuration process requirements.
+ * Prepare a `YAML` file configuration process requirements.
  * Ability to use the command line 
 ## Purpose
 Since the reduction in the costs of NGS, the detection of genetic variants has become more convenient, and sequencing technology is gradually being applied in clinical diagnosis. Many single nucleotide variations were happening in the human genome, but most of those variations were [benign](https://www.genome.gov/news/news-release/Genomics-daunting-challenge-Identifying-variants-that-matter).
