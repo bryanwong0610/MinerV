@@ -1,0 +1,504 @@
+{
+    "class": "Workflow",
+    "cwlVersion": "v1.0",
+    "id": "annovar_exomiser_workflow",
+    "label": "Annovar&Exomiser_workflow",
+    "$namespaces": {
+        "sbg": "https://www.sevenbridges.com/"
+    },
+    "inputs": [
+        {
+            "id": "raw_vcf",
+            "type": "File?",
+            "sbg:x": -489.48431396484375,
+            "sbg:y": -93.69962310791016
+        },
+        {
+            "id": "annovar_db",
+            "type": "Directory?",
+            "sbg:x": -496.79986572265625,
+            "sbg:y": 200.66134643554688
+        },
+        {
+            "id": "ref_version",
+            "type": "string?",
+            "sbg:x": -488.3419494628906,
+            "sbg:y": -238.50001525878906
+        },
+        {
+            "id": "splicing_threshold",
+            "type": "int?",
+            "sbg:x": -481.4285583496094,
+            "sbg:y": -372.8571472167969
+        },
+        {
+            "id": "output",
+            "type": "string?",
+            "sbg:x": -490.4285888671875,
+            "sbg:y": 57.92864990234375
+        },
+        {
+            "id": "annoPath",
+            "type": "Directory?",
+            "sbg:x": -131.60443115234375,
+            "sbg:y": 64.90933227539062
+        },
+        {
+            "id": "annoFileList",
+            "type": "string[]?",
+            "sbg:exposed": true
+        }
+    ],
+    "outputs": [
+        {
+            "id": "output_vcf",
+            "outputSource": [
+                "new_annovar_function/output_vcf"
+            ],
+            "type": "File?",
+            "sbg:x": -246.62950134277344,
+            "sbg:y": -420
+        },
+        {
+            "id": "output_txt",
+            "outputSource": [
+                "new_annovar_function/output_txt"
+            ],
+            "type": "File?",
+            "sbg:x": -157.10491943359375,
+            "sbg:y": -289.9737548828125
+        },
+        {
+            "id": "output_avinput",
+            "outputSource": [
+                "new_annovar_function/output_avinput"
+            ],
+            "type": "File?",
+            "sbg:x": -139.39183044433594,
+            "sbg:y": 218.5505828857422
+        },
+        {
+            "id": "output_1",
+            "outputSource": [
+                "geneanno/output_1"
+            ],
+            "type": "File?",
+            "sbg:x": 7.55300760269165,
+            "sbg:y": -244
+        }
+    ],
+    "steps": [
+        {
+            "id": "new_annovar_function",
+            "in": [
+                {
+                    "id": "raw_vcf",
+                    "source": "raw_vcf"
+                },
+                {
+                    "id": "annovar_db",
+                    "source": "annovar_db"
+                },
+                {
+                    "id": "ref_version",
+                    "source": "ref_version"
+                },
+                {
+                    "id": "splicing_threshold",
+                    "source": "splicing_threshold"
+                },
+                {
+                    "id": "output",
+                    "source": "output"
+                }
+            ],
+            "out": [
+                {
+                    "id": "output_vcf"
+                },
+                {
+                    "id": "output_txt"
+                },
+                {
+                    "id": "output_avinput"
+                }
+            ],
+            "run": {
+                "class": "CommandLineTool",
+                "cwlVersion": "v1.0",
+                "$namespaces": {
+                    "sbg": "https://www.sevenbridges.com/"
+                },
+                "id": "new_annovar_function",
+                "baseCommand": [
+                    "table_annovar.pl"
+                ],
+                "inputs": [
+                    {
+                        "id": "raw_vcf",
+                        "type": "File?",
+                        "inputBinding": {
+                            "position": 1
+                        }
+                    },
+                    {
+                        "id": "annovar_db",
+                        "type": "Directory?",
+                        "inputBinding": {
+                            "position": 2
+                        }
+                    },
+                    {
+                        "id": "ref_version",
+                        "type": "string?",
+                        "inputBinding": {
+                            "position": 3,
+                            "prefix": "-buildver"
+                        }
+                    },
+                    {
+                        "default": "refGene,avsnp150,popfreq_all_20150413,gnomad211_exome,clinvar_20210501,dbnsfp42a,rmsk,tfbsConsSites,intervar_20180118",
+                        "id": "protocol",
+                        "type": "string?",
+                        "inputBinding": {
+                            "position": 4,
+                            "prefix": "-protocol"
+                        }
+                    },
+                    {
+                        "default": "g,f,f,f,f,f,r,r,f",
+                        "id": "operation",
+                        "type": "string?",
+                        "inputBinding": {
+                            "position": 5,
+                            "prefix": "-operation"
+                        }
+                    },
+                    {
+                        "default": ".",
+                        "id": "NA_string",
+                        "type": "string?",
+                        "inputBinding": {
+                            "position": 6,
+                            "prefix": "-nastring"
+                        }
+                    },
+                    {
+                        "id": "splicing_threshold",
+                        "type": "int?",
+                        "inputBinding": {
+                            "position": 7,
+                            "prefix": "-intronhgvs"
+                        }
+                    },
+                    {
+                        "default": true,
+                        "id": "rm_tmp",
+                        "type": "boolean?",
+                        "inputBinding": {
+                            "position": 8,
+                            "prefix": "-remove"
+                        }
+                    },
+                    {
+                        "default": true,
+                        "id": "confirm_vcfinput",
+                        "type": "boolean?",
+                        "inputBinding": {
+                            "position": 9,
+                            "prefix": "-vcfinput"
+                        }
+                    },
+                    {
+                        "id": "output",
+                        "type": "string?",
+                        "inputBinding": {
+                            "position": 11,
+                            "prefix": "-out"
+                        }
+                    },
+                    {
+                        "default": true,
+                        "id": "other_info",
+                        "type": "boolean?",
+                        "inputBinding": {
+                            "position": 10,
+                            "prefix": "-otherinfo"
+                        }
+                    }
+                ],
+                "outputs": [
+                    {
+                        "id": "output_vcf",
+                        "type": "File?",
+                        "outputBinding": {
+                            "glob": "$(inputs.output)*_multianno.vcf"
+                        }
+                    },
+                    {
+                        "id": "output_txt",
+                        "type": "File?",
+                        "outputBinding": {
+                            "glob": "$(inputs.output)*_multianno.txt"
+                        }
+                    },
+                    {
+                        "id": "output_avinput",
+                        "type": "File?",
+                        "outputBinding": {
+                            "glob": "$(inputs.output).avinput"
+                        }
+                    }
+                ],
+                "label": "New_annovar_function",
+                "requirements": [
+                    {
+                        "class": "DockerRequirement",
+                        "dockerPull": "harbor.bio-it.cn:5000/library/annovar:latest"
+                    },
+                    {
+                        "class": "InlineJavascriptRequirement"
+                    }
+                ]
+            },
+            "label": "New_annovar_function",
+            "sbg:x": -254.1428680419922,
+            "sbg:y": -105.9285659790039
+        },
+        {
+            "id": "geneanno",
+            "in": [
+                {
+                    "id": "inputType",
+                    "default": "txt"
+                },
+                {
+                    "id": "inputFile",
+                    "source": "new_annovar_function/output_txt"
+                },
+                {
+                    "id": "annoCol",
+                    "default": "Gene.refGene"
+                },
+                {
+                    "id": "annoPath",
+                    "source": "annoPath"
+                },
+                {
+                    "id": "output",
+                    "default": "change_test.txt"
+                },
+                {
+                    "id": "annoFileList",
+                    "default": [
+                        "annotation",
+                        "OMIM",
+                        "GO",
+                        "DO",
+                        "HPO",
+                        "KEGG",
+                        "WIKI",
+                        "REACTOME",
+                        "BIOCARTA",
+                        "HALLMARK",
+                        "PID"
+                    ],
+                    "source": [
+                        "annoFileList"
+                    ]
+                },
+                {
+                    "id": "geneAlias",
+                    "default": "yes"
+                }
+            ],
+            "out": [
+                {
+                    "id": "output_1"
+                }
+            ],
+            "run": {
+                "class": "CommandLineTool",
+                "cwlVersion": "v1.0",
+                "$namespaces": {
+                    "sbg": "https://www.sevenbridges.com/"
+                },
+                "id": "geneanno",
+                "baseCommand": [
+                    "python",
+                    "geneAnno.py",
+                    "wqrwr4"
+                ],
+                "inputs": [
+                    {
+                        "id": "inputType",
+                        "type": "string?",
+                        "inputBinding": {
+                            "position": 0,
+                            "prefix": "--inputType"
+                        }
+                    },
+                    {
+                        "id": "gene",
+                        "type": "string?",
+                        "inputBinding": {
+                            "position": 0,
+                            "prefix": "--gene"
+                        }
+                    },
+                    {
+                        "id": "inputFile",
+                        "type": "File?",
+                        "inputBinding": {
+                            "position": 0,
+                            "prefix": "--inputFile"
+                        }
+                    },
+                    {
+                        "id": "annoCol",
+                        "type": "string?",
+                        "inputBinding": {
+                            "position": 0,
+                            "prefix": "--annoCol"
+                        }
+                    },
+                    {
+                        "id": "geneMulti",
+                        "type": "string?",
+                        "inputBinding": {
+                            "position": 0,
+                            "prefix": "--geneMulti"
+                        }
+                    },
+                    {
+                        "id": "annoPath",
+                        "type": "Directory?",
+                        "inputBinding": {
+                            "position": 0,
+                            "prefix": "--annoPath"
+                        }
+                    },
+                    {
+                        "id": "genesep",
+                        "type": "string?",
+                        "inputBinding": {
+                            "position": 0,
+                            "prefix": "--genesep"
+                        }
+                    },
+                    {
+                        "default": "out.txt",
+                        "id": "output",
+                        "type": "string?",
+                        "inputBinding": {
+                            "position": 100,
+                            "prefix": "--output"
+                        }
+                    },
+                    {
+                        "id": "annoFileList",
+                        "type": "string[]?",
+                        "inputBinding": {
+                            "position": 0,
+                            "prefix": "--annoFileList",
+                            "itemSeparator": ","
+                        }
+                    },
+                    {
+                        "id": "geneAlias",
+                        "type": "string?",
+                        "inputBinding": {
+                            "position": 0,
+                            "prefix": "--geneAlias"
+                        }
+                    }
+                ],
+                "outputs": [
+                    {
+                        "id": "output_1",
+                        "type": "File?",
+                        "outputBinding": {
+                            "glob": "$(inputs.output)"
+                        }
+                    }
+                ],
+                "label": "geneAnno",
+                "requirements": [
+                    {
+                        "class": "DockerRequirement",
+                        "dockerPull": "harbor.bio-it.cn:5000/library/py38_r403:anno"
+                    },
+                    {
+                        "class": "InitialWorkDirRequirement",
+                        "listing": [
+                            {
+                                "entryname": "geneAnno.py",
+                                "entry": "import warnings\r\nwarnings.filterwarnings(\"ignore\")\r\nimport pandas as pd\r\nimport numpy as np\r\nimport sys\r\nimport os\r\n\r\nfrom optparse import OptionParser\r\n\r\nparser = OptionParser()\r\nparser.add_option('--inputType', dest=\"inputType\", default = \"list\", help=\"list or file\")\r\nparser.add_option('--gene', dest=\"gene\", default = \"\", help=\"if inputType list, gene list\")\r\nparser.add_option('--inputFile', dest=\"inputFile\", default = \"\", help=\"if inputType file, gene file\")\r\nparser.add_option('--annoCol', dest=\"annoCol\", default = \"\", help=\"if inputType file, gene col\")\r\nparser.add_option('--geneMulti', dest=\"geneMulti\", default = \" \", help=\"if inputType file, gene multi, yes or no\")\r\nparser.add_option('--genesep', dest=\"genesep\", default = \" \", help=\"if inputType file, if geneMulti yes, gene sep\")\r\nparser.add_option('--annoPath', dest=\"annoPath\", default = \" \", help=\"annoPath\")\r\nparser.add_option('--output', dest=\"output\", default = \" \", help=\"output\")\r\nparser.add_option('--annoFileList', dest=\"annoFileList\", default = \" \", help=\"annoFileList, comma join\")\r\nparser.add_option('--geneAlias', default = \" \", dest=\"geneAlias\", help=\"geneAlias, yes or no\")\r\n(options, args) = parser.parse_args()\r\nfor i in \"inputType,gene,inputFile,annoCol,geneMulti,genesep,annoPath,output,annoFileList,geneAlias\".split(\",\"):\r\n    exec(i+\"=options.\"+i)\r\n\r\n\r\n\r\ndef read_data(inputFile,write = False,writeData = None):\r\n    fileType = inputFile.split(\".\")[-1]\r\n    if fileType == \"xlsx\":\r\n        if write:\r\n            writeData.to_excel(inputFile)\r\n        else:\r\n            transData = pd.read_excel(inputFile,dtype=\"str\")\r\n    else:\r\n        if fileType in [\"txt\",\"tsv\"]:\r\n            sep = \"\\t\"\r\n        else:\r\n            sep=\",\"\r\n        if write:\r\n            writeData.to_csv(inputFile,sep=sep,index = False)\r\n        else:\r\n            transData = pd.read_csv(inputFile,dtype=\"str\",sep=sep)\r\n    if not write:\r\n        return transData\r\n\r\ndef trans_int(x):\r\n    if not pd.isnull(x):\r\n        x = int(x)\r\n    return x\r\ndef trans_str(x):\r\n    if not pd.isnull(x):\r\n        x = str(int(x))\r\n    return x\r\n    \r\nif inputType == \"list\":\r\n    annoCol = \"search\"\r\n    gene = gene.replace(\",\",\"\\n\").replace(\"\\n\",\"\\t\").replace(\" \",\"\\t\").split(\"\\t\")\r\n    transData = pd.DataFrame(gene,columns=[annoCol])\r\n    transData = transData[transData[annoCol] != \"\"]\r\n    transData.index = range(len(transData))\r\nelif inputType == \"file\":\r\n    transData = read_data(inputFile)\r\ngeneTrans = pd.read_csv(os.path.join(annoPath,\"geneTrans.csv.gz\"),dtype=\"str\")\r\nif geneAlias == \"no\":\r\n    geneTrans = geneTrans[geneTrans[\"type\"] != \"synonyms\"]\r\ntransDataGene = transData[[annoCol]]\r\ntransDataGene.columns = [\"up\"]\r\ntransDataGene[\"up\"] = transDataGene[\"up\"].str.upper()\r\nif geneMulti == \"yes\":\r\n    transDataGene[\"order\"] = transDataGene.index\r\n    transDataGene = transDataGene.drop(\"up\", axis=1).join(transDataGene[\"up\"].str.split(genesep, expand=True).stack().reset_index(level=1, drop=True).rename(\"up\"))\r\ntransDataGene = pd.merge(transDataGene,geneTrans[[\"up\",\"id\"]],on=\"up\",how=\"left\")\r\nif geneMulti == \"yes\":\r\n    transDataGene[\"id\"] = transDataGene[\"id\"].apply(trans_int)\r\n    transDataGene = transDataGene.sort_values(by=\"id\").drop_duplicates(subset= [\"order\"]).sort_values(by=\"order\")\r\n    transDataGene[\"id\"] = transDataGene[\"id\"].apply(trans_str)\r\ntransDataGene = transDataGene[[\"id\"]]    \r\nannoFileList = annoFileList.split(\",\")\r\nfor annoFile in annoFileList:\r\n    anno = pd.read_csv(os.path.join(annoPath,\"DB\"+annoFile+\".csv.gz\"),dtype=\"str\")\r\n    for i in anno.columns:\r\n        if i != \"id\":\r\n            print({i:annoFile+\"_\"+i})\r\n            anno.rename(columns={i:annoFile+\"_\"+i},inplace=True)\r\n    transDataGene = pd.merge(transDataGene,anno,on=\"id\",how=\"left\")\r\ntransData = pd.concat([transData,transDataGene.drop(\"id\",axis =1)],axis=1)\r\ntransData.fillna(\".\",inplace=True)\r\n\r\nread_data(output,write = True,writeData = transData)\r\n# import time \r\n# time.sleep(100)",
+                                "writable": false
+                            }
+                        ]
+                    },
+                    {
+                        "class": "InlineJavascriptRequirement"
+                    }
+                ]
+            },
+            "label": "geneAnno",
+            "sbg:x": -57.662540435791016,
+            "sbg:y": -102.69349670410156
+        },
+        {
+            "id": "new_annovar_filter",
+            "in": [
+                {
+                    "id": "Input_file",
+                    "source": "geneanno/output_1"
+                }
+            ],
+            "out": [],
+            "run": {
+                "class": "CommandLineTool",
+                "cwlVersion": "v1.0",
+                "$namespaces": {
+                    "sbg": "https://www.sevenbridges.com/"
+                },
+                "id": "new_annovar_filter",
+                "baseCommand": [
+                    "Rscript",
+                    "Merge_res.R"
+                ],
+                "inputs": [
+                    {
+                        "id": "Input_file",
+                        "type": "File?",
+                        "inputBinding": {
+                            "position": 0
+                        }
+                    }
+                ],
+                "outputs": [],
+                "label": "New_annovar_filter",
+                "requirements": [
+                    {
+                        "class": "DockerRequirement",
+                        "dockerPull": "harbor.bio-it.cn:5000/library/micropb_r4.0.3:v1"
+                    },
+                    {
+                        "class": "InitialWorkDirRequirement",
+                        "listing": [
+                            {
+                                "entryname": "Merge_res.R",
+                                "entry": "#!/usr/bin/Rscript\n\n#Dowload pkg\ninstall.packages('readr')\ninstall.packages('dplyr')\ninstall.packages('stringr')\ninstall.packages('ggplot2')\n\n#Library\nlibrary(readr)\nlibrary(dplyr)\nlibrary(stringr)\nlibrary(ggplot2)\n#arg\narg <- commadArgs(TRUE)\ninput <-arg[1]\n\na <- read_delim(file = input , '\\t', escape_double = FALSE, trim_ws = TRUE )\nmax_freq <- apply(a[,c(13,16,19,22,27,29,35,39)],1,max, na.rm = F )\na$max_maf <- max_freq\na_num <- a[which(a$max_maf!='.'),]\na_string <- a[which(a$max_maf=='.'),]\nstr(a_num$max_maf)\na$max_maf[which(a_num$max_maf =='1.')]='1'\na$max_maf[which(a_num$max_maf =='0.')]='0'\na_num$max_maf <- as.numeric(a_num$max_maf)\nstr(a_num$max_maf)\n\ntable(a$Func.refGene)\nfilter_rule_region <- c(\"intergenic\",\"intron\",\"intronic\",\"ncRNA_intronic\",\"ncRNA_exonic\",\"ncRNA_exonic;splicing\",\"ncRNA_splicing\",\"ncRNA_UTR5\",\"UTR3\",\"UTR5\",'upstream;downstream',' upstream',\n                        'UTR3;UTR5','UTR5;UTR3','downstream')\nfilter_res_region_num <- filter(a_num,!(Func.refGene %in% filter_rule_region ))\nfilter_res_region_string <- filter(a_string,!(Func.refGene %in% filter_rule_region ))\nfilter_rule_function <- c('synonymous SNV')\nfilter_res_function_string <- filter(filter_res_region_string,!(Func.refGene %in% filter_rule_region ))\nfilter_res_function_num <- filter(filter_res_region_num,!(Func.refGene %in% filter_rule_region ))\n\nfilter_res_MAF_num <- filter_res_function_num[which(filter_res_function_num$max_maf < 0.01),]\nfilter_res_MAF_string <- filter_res_function_string[which(filter_res_function_string$max_maf < 0.01),]\n\nfilter_res_MAF <- rbind(filter_res_MAF_num,filter_res_MAF_string)\nfinal_res <- cbind(filter_res_MAF[,1:190],filter_res_MAF[,204:218],filter_res_MAF[,191:203])\nwrite.table(final_res,'changed_hg19_filterd_res.txt',row.names = F,sep = '\\t',quote = F)\n",
+                                "writable": true
+                            }
+                        ]
+                    }
+                ]
+            },
+            "label": "New_annovar_filter",
+            "sbg:x": 134.4597625732422,
+            "sbg:y": -99.0495376586914
+        }
+    ],
+    "requirements": []
+}

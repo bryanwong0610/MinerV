@@ -1,0 +1,363 @@
+{
+    "class": "Workflow",
+    "cwlVersion": "v1.0",
+    "id": "vcf2fasta_mt",
+    "label": "vcf2fasta_MT",
+    "$namespaces": {
+        "sbg": "https://www.sevenbridges.com/"
+    },
+    "inputs": [
+        {
+            "id": "vcf_gz",
+            "type": "File?",
+            "sbg:x": -447.249267578125,
+            "sbg:y": -115.00593566894531
+        },
+        {
+            "id": "ref_fa",
+            "type": "File?",
+            "secondaryFiles": [
+                ".fai"
+            ],
+            "sbg:x": 53.60113525390625,
+            "sbg:y": -387.99639892578125
+        },
+        {
+            "id": "out_fasta",
+            "type": "string?",
+            "sbg:x": -84.78165435791016,
+            "sbg:y": -276.1625671386719
+        }
+    ],
+    "outputs": [
+        {
+            "id": "output",
+            "outputSource": [
+                "vcf2fasta/output"
+            ],
+            "type": "File?",
+            "sbg:x": 462.6468505859375,
+            "sbg:y": -252.9080047607422
+        }
+    ],
+    "steps": [
+        {
+            "id": "ungz",
+            "in": [
+                {
+                    "id": "vcf_gz",
+                    "source": "vcf_gz"
+                }
+            ],
+            "out": [
+                {
+                    "id": "uncomposed"
+                }
+            ],
+            "run": {
+                "class": "CommandLineTool",
+                "cwlVersion": "v1.0",
+                "$namespaces": {
+                    "sbg": "https://www.sevenbridges.com/"
+                },
+                "id": "ungz",
+                "baseCommand": [
+                    "gunzip",
+                    "-c"
+                ],
+                "inputs": [
+                    {
+                        "id": "vcf_gz",
+                        "type": "File?",
+                        "inputBinding": {
+                            "position": 0
+                        }
+                    }
+                ],
+                "outputs": [
+                    {
+                        "id": "uncomposed",
+                        "type": "File?",
+                        "outputBinding": {
+                            "glob": "*.vcf"
+                        }
+                    }
+                ],
+                "label": "ungz",
+                "arguments": [
+                    {
+                        "position": 1,
+                        "prefix": ">",
+                        "shellQuote": false,
+                        "valueFrom": "a.vcf"
+                    }
+                ],
+                "requirements": [
+                    {
+                        "class": "ShellCommandRequirement"
+                    },
+                    {
+                        "class": "DockerRequirement",
+                        "dockerPull": "harbor.bio-it.cn:5000/library/tabix:1.11--hdfd78af_0"
+                    }
+                ]
+            },
+            "label": "ungz",
+            "sbg:x": -285,
+            "sbg:y": -62
+        },
+        {
+            "id": "bgzip",
+            "in": [
+                {
+                    "id": "input",
+                    "source": "ungz/uncomposed"
+                }
+            ],
+            "out": [
+                {
+                    "id": "gz_vcf"
+                }
+            ],
+            "run": {
+                "class": "CommandLineTool",
+                "cwlVersion": "v1.0",
+                "$namespaces": {
+                    "sbg": "https://www.sevenbridges.com/"
+                },
+                "id": "bgzip",
+                "baseCommand": [
+                    "bgzip"
+                ],
+                "inputs": [
+                    {
+                        "id": "input",
+                        "type": "File?",
+                        "inputBinding": {
+                            "position": 0
+                        }
+                    }
+                ],
+                "outputs": [
+                    {
+                        "id": "gz_vcf",
+                        "type": "File?",
+                        "outputBinding": {
+                            "glob": "*.vcf.gz"
+                        }
+                    }
+                ],
+                "label": "bgzip",
+                "requirements": [
+                    {
+                        "class": "DockerRequirement",
+                        "dockerPull": "harbor.bio-it.cn:5000/library/tabix:1.11--hdfd78af_0"
+                    },
+                    {
+                        "class": "InitialWorkDirRequirement",
+                        "listing": [
+                            "$(inputs.input)"
+                        ]
+                    },
+                    {
+                        "class": "InlineJavascriptRequirement"
+                    }
+                ]
+            },
+            "label": "bgzip",
+            "sbg:x": -78,
+            "sbg:y": -97
+        },
+        {
+            "id": "tabix",
+            "in": [
+                {
+                    "id": "GZ_Sorted_VCF",
+                    "source": "bgzip/gz_vcf"
+                }
+            ],
+            "out": [
+                {
+                    "id": "VCF_o_gz"
+                }
+            ],
+            "run": {
+                "class": "CommandLineTool",
+                "cwlVersion": "v1.0",
+                "$namespaces": {
+                    "sbg": "https://www.sevenbridges.com/"
+                },
+                "id": "tabix",
+                "baseCommand": [
+                    "tabix",
+                    "-p",
+                    "vcf"
+                ],
+                "inputs": [
+                    {
+                        "id": "GZ_Sorted_VCF",
+                        "type": "File?",
+                        "inputBinding": {
+                            "position": 0
+                        }
+                    }
+                ],
+                "outputs": [
+                    {
+                        "id": "VCF_o_gz",
+                        "type": "File?",
+                        "outputBinding": {
+                            "glob": "*.vcf.gz"
+                        },
+                        "secondaryFiles": [
+                            ".tbi"
+                        ]
+                    }
+                ],
+                "label": "tabix",
+                "requirements": [
+                    {
+                        "class": "DockerRequirement",
+                        "dockerPull": "harbor.bio-it.cn:5000/library/tabix:1.11--hdfd78af_0"
+                    },
+                    {
+                        "class": "InitialWorkDirRequirement",
+                        "listing": [
+                            "$(inputs.GZ_Sorted_VCF)"
+                        ]
+                    },
+                    {
+                        "class": "InlineJavascriptRequirement"
+                    }
+                ]
+            },
+            "label": "tabix",
+            "sbg:x": 81.12462615966797,
+            "sbg:y": -105.52225494384766
+        },
+        {
+            "id": "vcf2fasta",
+            "in": [
+                {
+                    "id": "ref_fa",
+                    "source": "ref_fa"
+                },
+                {
+                    "id": "gz_vcf",
+                    "source": "tabix/VCF_o_gz"
+                },
+                {
+                    "id": "out_fasta",
+                    "source": "out_fasta"
+                }
+            ],
+            "out": [
+                {
+                    "id": "output"
+                }
+            ],
+            "run": {
+                "class": "CommandLineTool",
+                "cwlVersion": "v1.0",
+                "$namespaces": {
+                    "sbg": "https://www.sevenbridges.com/"
+                },
+                "id": "vcf2fasta",
+                "baseCommand": [
+                    "cat"
+                ],
+                "inputs": [
+                    {
+                        "id": "ref_fa",
+                        "type": "File?",
+                        "inputBinding": {
+                            "position": 0,
+                            "shellQuote": false
+                        },
+                        "secondaryFiles": [
+                            ".fai"
+                        ]
+                    },
+                    {
+                        "id": "gz_vcf",
+                        "type": "File?",
+                        "inputBinding": {
+                            "position": 5,
+                            "shellQuote": false
+                        },
+                        "secondaryFiles": [
+                            ".tbi"
+                        ]
+                    },
+                    {
+                        "id": "out_fasta",
+                        "type": "string?",
+                        "inputBinding": {
+                            "position": 7,
+                            "shellQuote": false
+                        }
+                    }
+                ],
+                "outputs": [
+                    {
+                        "id": "output",
+                        "type": "File?",
+                        "outputBinding": {
+                            "glob": "$(inputs.out_fasta)"
+                        }
+                    }
+                ],
+                "label": "vcf2fasta",
+                "arguments": [
+                    {
+                        "position": 1,
+                        "prefix": "",
+                        "separate": false,
+                        "shellQuote": false,
+                        "valueFrom": "|"
+                    },
+                    {
+                        "position": 2,
+                        "prefix": "bcftools",
+                        "shellQuote": false,
+                        "valueFrom": "consensus "
+                    },
+                    {
+                        "position": 6,
+                        "prefix": "",
+                        "shellQuote": false,
+                        "valueFrom": ">"
+                    },
+                    {
+                        "position": 3,
+                        "prefix": "--haplotype",
+                        "shellQuote": false,
+                        "valueFrom": "LA"
+                    },
+                    {
+                        "position": 4,
+                        "prefix": "--include",
+                        "shellQuote": false,
+                        "valueFrom": "'TYPE=\"snp\"||TYPE=\"indel\"||TYPE=\"mnp\"'"
+                    }
+                ],
+                "requirements": [
+                    {
+                        "class": "ShellCommandRequirement"
+                    },
+                    {
+                        "class": "DockerRequirement",
+                        "dockerPull": "quay.io/biocontainers/bcftools:1.15.1--h0ea216a_0"
+                    },
+                    {
+                        "class": "InlineJavascriptRequirement"
+                    }
+                ]
+            },
+            "label": "vcf2fasta",
+            "sbg:x": 285.7002868652344,
+            "sbg:y": -123.9792251586914
+        }
+    ],
+    "requirements": []
+}

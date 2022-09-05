@@ -1,0 +1,24 @@
+{
+    "dirdata": {
+        "class": "Directory",
+        "path": "/mnt/datashare/reference_genome/Exomiser/exomiser-data"
+    },
+    "genomeAssembly": "hg38",
+    "hpoIds": [
+        "HP:0001156",
+        "HP:0001363",
+        "HP:0011304",
+        "HP:0010055"
+    ],
+    "maxFreq": 4,
+    "outpref": "test_workflow",
+    "vcf": {
+        "class": "File",
+        "path": "/mnt/datashare/home/tanchushu/annovar/new/wes_tumor_result/tumor/05_variant_calling/tumor.vcf.gz"
+    },
+    "version": "2109",
+    "yml": {
+        "class": "File",
+        "path": "/mnt/datashare/reference_genome/Exomiser/exomiser-config/test-analysis-exome.yml"
+    },
+}

@@ -1,0 +1,17 @@
+{
+    "analysis": {
+        "class": "File",
+        "path": "/mnt/datashare/home/wangyayun/03.project/02.exomiser/02.cwl/hg38/01.prepare/output_1234.yml"
+    },
+    "assembly": "hg38",
+    "data": {
+        "class": "Directory",
+        "path": "/mnt/datashare/reference_genome/Exomiser/exomiser-data"
+    },
+    "outpref": "test_1234",
+    "vcf": {
+        "class": "File",
+        "path": "/mnt/datashare/home/tanchushu/annovar/new/wes_tumor_result/tumor/05_variant_calling/tumor.vcf.gz"
+    },
+    "version": "2109"
+}

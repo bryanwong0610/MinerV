@@ -1,0 +1,209 @@
+{
+    "class": "Workflow",
+    "cwlVersion": "v1.0",
+    "id": "csvs_to_sqlite_workflow",
+    "label": "csvs-to-sqlite_workflow",
+    "$namespaces": {
+        "sbg": "https://www.sevenbridges.com/"
+    },
+    "inputs": [
+        {
+            "id": "csv",
+            "type": "File",
+            "default": {
+                "class": "File",
+                "path": "/mnt/datashare/home/kongxiangya/test/ceshi/csvs-to-sqlite/geneInfo.csv"
+            },
+            "sbg:x": -556.1796875,
+            "sbg:y": -78.16699981689453
+        },
+        {
+            "id": "sep",
+            "type": "string?",
+            "default": ",",
+            "sbg:exposed": true
+        },
+        {
+            "id": "shape",
+            "type": "string?",
+            "default": "",
+            "sbg:exposed": true
+        },
+        {
+            "id": "strings",
+            "type": "boolean?",
+            "default": false,
+            "sbg:exposed": true
+        },
+        {
+            "id": "db",
+            "type": "string?",
+            "default": "out.db",
+            "sbg:exposed": true
+        },
+        {
+            "id": "index",
+            "type": "string?",
+            "sbg:exposed": true
+        }
+    ],
+    "outputs": [
+        {
+            "id": "output",
+            "outputSource": [
+                "csvs_to_sqlite/output"
+            ],
+            "type": "File?",
+            "sbg:x": -134.17970275878906,
+            "sbg:y": -80.16699981689453
+        }
+    ],
+    "steps": [
+        {
+            "id": "csvs_to_sqlite",
+            "in": [
+                {
+                    "id": "csv",
+                    "source": "csv"
+                },
+                {
+                    "id": "db",
+                    "source": "db"
+                },
+                {
+                    "id": "sep",
+                    "source": "sep"
+                },
+                {
+                    "id": "strings",
+                    "source": "strings"
+                },
+                {
+                    "id": "shape",
+                    "source": "shape"
+                },
+                {
+                    "id": "index",
+                    "source": "index"
+                }
+            ],
+            "out": [
+                {
+                    "id": "output"
+                }
+            ],
+            "run": {
+                "class": "CommandLineTool",
+                "cwlVersion": "v1.0",
+                "$namespaces": {
+                    "sbg": "https://www.sevenbridges.com/"
+                },
+                "id": "csvs_to_sqlite",
+                "baseCommand": [
+                    "csvs-to-sqlite"
+                ],
+                "inputs": [
+                    {
+                        "default": {
+                            "class": "File",
+                            "path": "/mnt/datashare/home/kongxiangya/test/ceshi/csvs-to-sqlite/geneInfo.csv"
+                        },
+                        "id": "csv",
+                        "type": "File",
+                        "inputBinding": {
+                            "position": 100
+                        }
+                    },
+                    {
+                        "default": "out",
+                        "id": "db",
+                        "type": "string?",
+                        "inputBinding": {
+                            "position": 101
+                        }
+                    },
+                    {
+                        "default": "",
+                        "id": "table",
+                        "type": "string?",
+                        "inputBinding": {
+                            "position": 102,
+                            "prefix": "-t",
+                            "valueFrom": "$(inputs.db)"
+                        }
+                    },
+                    {
+                        "default": ",",
+                        "id": "sep",
+                        "type": "string?",
+                        "inputBinding": {
+                            "position": 0,
+                            "prefix": "-s"
+                        }
+                    },
+                    {
+                        "id": "strings",
+                        "type": "boolean?",
+                        "inputBinding": {
+                            "position": 0,
+                            "prefix": "--just-strings"
+                        }
+                    },
+                    {
+                        "default": "",
+                        "id": "shape",
+                        "type": "string?",
+                        "inputBinding": {
+                            "position": 0,
+                            "prefix": "--shape"
+                        }
+                    },
+                    {
+                        "default": "GeneID,Symbol",
+                        "id": "index",
+                        "type": "string?"
+                    }
+                ],
+                "outputs": [
+                    {
+                        "id": "output",
+                        "type": "File?",
+                        "outputBinding": {
+                            "glob": "$(inputs.db)"
+                        }
+                    }
+                ],
+                "label": "csvs-to-sqlite",
+                "arguments": [
+                    {
+                        "position": 1000,
+                        "shellQuote": false,
+                        "valueFrom": "${ if (!inputs.db.endsWith(\".db\")){ return  `&& mv ${inputs.db}.db ${inputs.db}`; } return \"\" }"
+                    },
+                    {
+                        "position": 900,
+                        "shellQuote": false,
+                        "valueFrom": "${ if (inputs.index !== \"\")\n    { \n      let resultStr = ''\n      let strArr=inputs.index.split(\",\")\n      let i = 0\n      for(i=0;i<strArr.length;i++){\n        resultStr += ` -i ${strArr[i]}`\n        \n       }\n      return  resultStr; \n    } \n      return \"\" \n    \n}"
+                    }
+                ],
+                "requirements": [
+                    {
+                        "class": "ShellCommandRequirement"
+                    },
+                    {
+                        "class": "DockerRequirement",
+                        "dockerPull": "harbor.bio-it.cn:5000/library/py38_r403:csvs-to-sqlite-1.3"
+                    },
+                    {
+                        "class": "InlineJavascriptRequirement"
+                    }
+                ]
+            },
+            "label": "csvs-to-sqlite",
+            "sbg:x": -344.40106201171875,
+            "sbg:y": -80.16669464111328
+        }
+    ],
+    "requirements": [],
+    "sbg:reRun": true
+}

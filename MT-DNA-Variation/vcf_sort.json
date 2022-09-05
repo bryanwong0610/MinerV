@@ -1,0 +1,225 @@
+{
+    "class": "Workflow",
+    "cwlVersion": "v1.0",
+    "id": "analysis_single_exomiser_wf_v1",
+    "label": "sort_vcf",
+    "$namespaces": {
+        "sbg": "https://www.sevenbridges.com/"
+    },
+    "inputs": [
+        {
+            "id": "vcf_gz",
+            "type": "File?",
+            "sbg:x": -1692.2823486328125,
+            "sbg:y": -286.4469909667969
+        }
+    ],
+    "outputs": [
+        {
+            "id": "VCF_o_gz",
+            "outputSource": [
+                "tabix/VCF_o_gz"
+            ],
+            "type": "File?",
+            "sbg:x": -782.0003662109375,
+            "sbg:y": -498.2431640625
+        }
+    ],
+    "steps": [
+        {
+            "id": "tabix",
+            "in": [
+                {
+                    "id": "GZ_Sorted_VCF",
+                    "source": "bgzip/gz_vcf"
+                }
+            ],
+            "out": [
+                {
+                    "id": "VCF_o_gz"
+                }
+            ],
+            "run": {
+                "class": "CommandLineTool",
+                "cwlVersion": "v1.0",
+                "$namespaces": {
+                    "sbg": "https://www.sevenbridges.com/"
+                },
+                "id": "tabix",
+                "baseCommand": [
+                    "tabix",
+                    "-p",
+                    "vcf"
+                ],
+                "inputs": [
+                    {
+                        "id": "GZ_Sorted_VCF",
+                        "type": "File?",
+                        "inputBinding": {
+                            "position": 0
+                        }
+                    }
+                ],
+                "outputs": [
+                    {
+                        "id": "VCF_o_gz",
+                        "type": "File?",
+                        "outputBinding": {
+                            "glob": "*.vcf.gz"
+                        },
+                        "secondaryFiles": [
+                            ".tbi"
+                        ]
+                    }
+                ],
+                "label": "tabix",
+                "requirements": [
+                    {
+                        "class": "DockerRequirement",
+                        "dockerPull": "harbor.bio-it.cn:5000/library/tabix:1.11--hdfd78af_0"
+                    },
+                    {
+                        "class": "InitialWorkDirRequirement",
+                        "listing": [
+                            "$(inputs.GZ_Sorted_VCF)"
+                        ]
+                    },
+                    {
+                        "class": "InlineJavascriptRequirement"
+                    }
+                ]
+            },
+            "label": "tabix",
+            "sbg:x": -960.7049560546875,
+            "sbg:y": -258.175537109375
+        },
+        {
+            "id": "ungz",
+            "in": [
+                {
+                    "id": "vcf_gz",
+                    "source": "vcf_gz"
+                }
+            ],
+            "out": [
+                {
+                    "id": "uncomposed"
+                }
+            ],
+            "run": {
+                "class": "CommandLineTool",
+                "cwlVersion": "v1.0",
+                "$namespaces": {
+                    "sbg": "https://www.sevenbridges.com/"
+                },
+                "id": "ungz",
+                "baseCommand": [
+                    "gunzip",
+                    "-c"
+                ],
+                "inputs": [
+                    {
+                        "id": "vcf_gz",
+                        "type": "File?",
+                        "inputBinding": {
+                            "position": 0
+                        }
+                    }
+                ],
+                "outputs": [
+                    {
+                        "id": "uncomposed",
+                        "type": "File?",
+                        "outputBinding": {
+                            "glob": "*.vcf"
+                        }
+                    }
+                ],
+                "label": "ungz",
+                "arguments": [
+                    {
+                        "position": 1,
+                        "prefix": ">",
+                        "shellQuote": false,
+                        "valueFrom": "a.vcf"
+                    }
+                ],
+                "requirements": [
+                    {
+                        "class": "ShellCommandRequirement"
+                    },
+                    {
+                        "class": "DockerRequirement",
+                        "dockerPull": "harbor.bio-it.cn:5000/library/tabix:1.11--hdfd78af_0"
+                    }
+                ]
+            },
+            "label": "ungz",
+            "sbg:x": -1560.2764892578125,
+            "sbg:y": -161.27407836914062
+        },
+        {
+            "id": "bgzip",
+            "in": [
+                {
+                    "id": "input",
+                    "source": "ungz/uncomposed"
+                }
+            ],
+            "out": [
+                {
+                    "id": "gz_vcf"
+                }
+            ],
+            "run": {
+                "class": "CommandLineTool",
+                "cwlVersion": "v1.0",
+                "$namespaces": {
+                    "sbg": "https://www.sevenbridges.com/"
+                },
+                "id": "bgzip",
+                "baseCommand": [
+                    "bgzip"
+                ],
+                "inputs": [
+                    {
+                        "id": "input",
+                        "type": "File?",
+                        "inputBinding": {
+                            "position": 0
+                        }
+                    }
+                ],
+                "outputs": [
+                    {
+                        "id": "gz_vcf",
+                        "type": "File?",
+                        "outputBinding": {
+                            "glob": "*.vcf.gz"
+                        }
+                    }
+                ],
+                "label": "bgzip",
+                "requirements": [
+                    {
+                        "class": "DockerRequirement",
+                        "dockerPull": "harbor.bio-it.cn:5000/library/tabix:1.11--hdfd78af_0"
+                    },
+                    {
+                        "class": "InitialWorkDirRequirement",
+                        "listing": [
+                            "$(inputs.input)"
+                        ]
+                    },
+                    {
+                        "class": "InlineJavascriptRequirement"
+                    }
+                ]
+            },
+            "label": "bgzip",
+            "sbg:x": -1282.494873046875,
+            "sbg:y": -169.3849639892578
+        }
+    ],
+    "requirements": []
+}
