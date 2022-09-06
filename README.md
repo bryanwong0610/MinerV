@@ -45,7 +45,8 @@ So, it's a great challenge to select the most likely pathogenic variation for do
   * VCF : raw vcf 
   * Output_name: a prefix of the result
 
-
+## Front-end
+<img width="1429" alt="截屏2022-09-06 10 58 20" src="https://user-images.githubusercontent.com/53446971/188537727-85d24eb1-e71f-4317-9057-bd5161a951a1.png">
 
 
 
