@@ -5,7 +5,6 @@ A workflow to annotate and evaluate the variation pathogenicity of human Exome S
  * Firstly ensure the Docker is already installed on your equipment ([Docker](https://www.docker.com) support Linux, Mac, Windows system)
  * Patient's disease features and phenotype should be known, using those description words to select the most matching HPO id by [Phenomizer](https://compbio.charite.de/phenomizer/)
  * Prepare a `YAML` file configuration process requirements.
- * Ability to use the command line 
 ## Purpose
 Since the reduction in the costs of NGS, the detection of genetic variants has become more convenient, and sequencing technology is gradually being applied in clinical diagnosis. Many single nucleotide variations were happening in the human genome, but most of those variations were [benign](https://www.genome.gov/news/news-release/Genomics-daunting-challenge-Identifying-variants-that-matter).
 So, it's a great challenge to select the most likely pathogenic variation for doctors and scientists. Therefore many institutions publish their guideline to help researchers better to find out the most pathogenic mutation, such as the [ACMG](https://www.gimjournal.org/article/S1098-3600(21)03031-8/fulltext). And also many databases were released to record the pathogenicity and related phenotype of SNPs.([ClinVar](https://www.ncbi.nlm.nih.gov/clinvar/),[decipher](https://www.deciphergenomics.org/patient/263708/genotype/241078/browser), etc…). Apply those resources, we can easily find out some valuable candidate variation sites to treat the patient's disease by some special target. Here we construct a comprehensive workflow, by using the released tools, to annotate the NGS data (now support the [VCF](https://www.internationalgenome.org/wiki/Analysis/vcf4.0/) format) and filter the variant data (which can be set up by the user), to get the most related variation information for clinical diagnosis.
@@ -23,8 +22,9 @@ So, it's a great challenge to select the most likely pathogenic variation for do
  * etc...
 ## Pipeline 
   ### WES & WGS data annotation and filter
-  <img width="996" alt="截屏2022-08-22 17 57 50" src="https://user-images.githubusercontent.com/53446971/185894488-ef6bcffb-e008-4b70-9472-86e0bfc6b111.png">
-  
+ 
+  <img width="1153" alt="截屏2022-09-27 15 22 08" src="https://user-images.githubusercontent.com/53446971/192460466-82c43eb7-ce72-4fda-8fb1-b573772681c2.png">
+
 #### API :
    * HPOid
    * splicing_threshold
@@ -44,9 +44,3 @@ So, it's a great challenge to select the most likely pathogenic variation for do
   ##### API:
   * VCF : raw vcf 
   * Output_name: a prefix of the result
-
-## Front-end
-<img width="1429" alt="截屏2022-09-06 10 58 20" src="https://user-images.githubusercontent.com/53446971/188537727-85d24eb1-e71f-4317-9057-bd5161a951a1.png">
-
-
-
