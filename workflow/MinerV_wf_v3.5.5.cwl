@@ -1,7 +1,7 @@
 class: Workflow
 cwlVersion: v1.0
-id: _varminer
-label: V3.5.5_Varminer
+id: MinerV
+label: V3.5.5_MinerV
 $namespaces:
   sbg: 'https://www.sevenbridges.com/'
 inputs:
@@ -105,7 +105,7 @@ inputs:
     type: File
     default:
       class: File
-      path: /mnt/datashare/reference_genome/varminer/test_exomiser.yml
+      path: /mnt/datashare/reference_genome/minerV/test_exomiser.yml
     'sbg:x': 701.4862670898438
     'sbg:y': -689.8491821289062
   - id: dataDir
@@ -119,14 +119,14 @@ inputs:
     type: File?
     default:
       class: File
-      path: /mnt/datashare/reference_genome/varminer/OMIM_08_26.csv
+      path: /mnt/datashare/reference_genome/minerV/OMIM_08_26.csv
     'sbg:x': 1125.3939208984375
     'sbg:y': 578.6857299804688
   - id: HPO_db
     type: File?
     default:
       class: File
-      path: /mnt/datashare/reference_genome/varminer/HPO_dt_2022_09_12.csv
+      path: /mnt/datashare/reference_genome/minerV/HPO_dt_2022_09_12.csv
     'sbg:x': 1379.6558837890625
     'sbg:y': 499.03741455078125
 outputs:
