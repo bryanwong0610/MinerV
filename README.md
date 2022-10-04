@@ -1,4 +1,4 @@
-# Varminer
+# MinerV
 ## Intro
 A workflow to annotate and evaluate the variation pathogenicity of human Exome Sequencing data, Whole Genome Sequencing data, and MT-DNA sequencing data for clinical diagnosis.
 ## How to use?
