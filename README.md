@@ -46,4 +46,5 @@ So, it's a great challenge to select the most likely pathogenic variation for do
   * Output_name: a prefix of the result
 ### database generate script base on：
 https://github.com/WGLab/doc-ANNOVAR/issues/15
+
 https://github.com/mobidic/update_annovar_db
