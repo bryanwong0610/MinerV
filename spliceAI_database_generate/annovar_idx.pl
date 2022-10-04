@@ -1,3 +1,5 @@
+## This script was from annovar's github issue 15
+
 #!/bin/perl
 $N=0;
 $bin=$ARGV[1];
